@@ -63,6 +63,16 @@ xcodebuild \
   build
 ```
 
+To run all package tests and export a JSON coverage report before preparing a
+commit:
+
+```sh
+./scripts/test-with-coverage.sh
+```
+
+The report is written to `coverage/coverage.json` and is intentionally ignored
+by Git.
+
 ## Add this package to another project
 
 In Xcode, choose **File → Add Package Dependencies… → Add Local…**, then select
