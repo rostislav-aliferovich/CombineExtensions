@@ -4,7 +4,7 @@ Small, composable extensions for Apple's Combine framework.
 
 ## Requirements
 
-- Swift 5.9 or later
+- Swift 6.0 or later (Xcode 16+)
 - iOS 15+, macOS 12+, tvOS 15+, or watchOS 8+
 
 ## Repository structure
