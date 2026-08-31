@@ -37,7 +37,9 @@ Add library code under `Sources/CombineExtensions/`. Add tests under
 `Tests/CombineExtensionsTests/`. SwiftPM automatically includes files placed
 in those target directories.
 
-## Share and replay publisher values
+## Publisher operators
+
+### Share and replay publisher values
 
 Use `shareReplay(_:)` to share one upstream subscription and replay a bounded
 history to subscribers that join later:
@@ -58,6 +60,24 @@ let laterSubscriber = shared.sink { value in
 
 The sample app demonstrates this with its “Subscribe and replay last 2 events”
 button. A buffer size of zero disables replay while retaining shared behavior.
+
+### Remove `nil` publisher values
+
+Use `unwrap()` when a publisher emits optional values and you want to continue
+with only the non-`nil` values:
+
+```swift
+let values: [Int?] = [1, nil, 2]
+let unwrapped = values.publisher
+  .unwrap()
+
+let cancellable = unwrapped.sink { value in
+  print(value) // 1, then 2
+}
+```
+
+`unwrap()` removes one level of optionality, preserves the original order, and
+forwards upstream failures unchanged.
 
 The repository uses two spaces for indentation. `.editorconfig` is included so
 supported editors and generators use spaces instead of tab characters.
