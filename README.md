@@ -37,6 +37,28 @@ Add library code under `Sources/CombineExtensions/`. Add tests under
 `Tests/CombineExtensionsTests/`. SwiftPM automatically includes files placed
 in those target directories.
 
+## Share and replay publisher values
+
+Use `shareReplay(_:)` to share one upstream subscription and replay a bounded
+history to subscribers that join later:
+
+```swift
+let shared = events
+  .shareReplay(2)
+
+let firstSubscriber = shared.sink { value in
+  print(value)
+}
+
+// A later subscriber immediately receives the two most recent values.
+let laterSubscriber = shared.sink { value in
+  print(value)
+}
+```
+
+The sample app demonstrates this with its “Subscribe and replay last 2 events”
+button. A buffer size of zero disables replay while retaining shared behavior.
+
 The repository uses two spaces for indentation. `.editorconfig` is included so
 supported editors and generators use spaces instead of tab characters.
 
