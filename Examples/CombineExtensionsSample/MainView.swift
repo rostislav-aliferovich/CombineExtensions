@@ -28,6 +28,17 @@ struct MainView: View {
         viewModel.sendEvent()
       }
       .buttonStyle(.borderedProminent)
+
+      Button("Subscribe and replay last 2 events") {
+        viewModel.subscribeToReplay()
+      }
+
+      Text("Replay subscriber")
+        .font(.headline)
+      Text(viewModel.replayedEvents.joined(separator: "\n"))
+        .font(.footnote)
+        .foregroundStyle(.secondary)
+        .frame(maxWidth: .infinity, minHeight: 40, alignment: .topLeading)
     }
     .padding(24)
   }
